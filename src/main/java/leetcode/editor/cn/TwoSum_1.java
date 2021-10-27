@@ -43,7 +43,7 @@ package leetcode.editor.cn;
 //
 // 进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？ 
 // Related Topics 数组 哈希表 
-// 👍 12437 👎 0
+// 👍 12439 👎 0
 
 
 import java.util.Arrays;
@@ -56,9 +56,10 @@ public class TwoSum_1 {
         System.out.println(ret[0] + "," + ret[1]);
     }
 
+    //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] nums, int target) {
-            int[] ret = new int[2];
+            int[] ret = new int[]{-1, -1};
             int[] old = Arrays.copyOf(nums, nums.length);
             Arrays.sort(nums);
             int s = 0;
@@ -73,7 +74,7 @@ public class TwoSum_1 {
                     e -= 1;
                 } else {
                     for (int i = 0; i < old.length; i++) {
-                        if (old[i] == nums[s]) {
+                        if (old[i] == nums[s] && ret[0] == -1) {
                             ret[0] = i;
                         }
                         if (old[i] == nums[e] && ret[0] != i) {
@@ -88,5 +89,6 @@ public class TwoSum_1 {
 
         }
     }
+//leetcode submit region end(Prohibit modification and deletion)
 
 }
