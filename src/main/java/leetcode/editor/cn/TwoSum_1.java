@@ -48,9 +48,9 @@ package leetcode.editor.cn;
 
 import java.util.Arrays;
 
-public class TwoSum {
+public class TwoSum_1 {
     public static void main(String[] args) {
-        Solution solution = new TwoSum().new Solution();
+        Solution solution = new TwoSum_1().new Solution();
         int[] arrs = {2, 4, 4, 9};
         int[] ret = solution.twoSum(arrs, 8);
         System.out.println(ret[0] + "," + ret[1]);
