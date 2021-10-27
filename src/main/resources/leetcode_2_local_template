@@ -1,0 +1,17 @@
+Class Name:
+$!velocityTool.camelCaseName(${question.titleSlug})_${question.frontendQuestionId}
+
+Code Template:
+
+package leetcode.editor.cn;
+
+${question.content}
+
+public class $!velocityTool.camelCaseName(${question.titleSlug})_${question.frontendQuestionId}{
+    public static void main(String[] args){
+        Solution solution = new $!velocityTool.camelCaseName(${question.titleSlug})_${question.frontendQuestionId}().new Solution();
+
+    }
+
+    ${question.code}
+}
