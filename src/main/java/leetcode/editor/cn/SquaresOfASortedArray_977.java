@@ -43,16 +43,58 @@ package leetcode.editor.cn;
 // 👍 326 👎 0
 
 
+import com.alibaba.fastjson.JSON;
+
 public class SquaresOfASortedArray_977 {
     public static void main(String[] args) {
         Solution solution = new SquaresOfASortedArray_977().new Solution();
-
+        int[] arr = {-7, -3, 2, 2, 11};
+        int[] ret = solution.sortedSquares(arr);
+        System.out.println(JSON.toJSONString(ret));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] sortedSquares(int[] nums) {
-            return new int[]{1};
+            int middle = 0;
+            for (; middle < nums.length; middle++) {
+                if (nums[middle] >= 0) {
+                    break;
+                }
+            }
+
+            int up = middle;
+            int down = middle - 1;
+            int[] ret = new int[nums.length];
+
+            int addIndex = 0;
+            while (up < nums.length || down >= 0) {
+                int right = up < nums.length ? nums[up] * nums[up] : -1;
+                int left = down >= 0 ? nums[down] * nums[down] : -1;
+
+                if (down < 0) {
+                    ret[addIndex] = right;
+                    addIndex++;
+                    up += 1;
+                    continue;
+                }
+                if (up >= nums.length) {
+                    ret[addIndex] = left;
+                    addIndex++;
+                    down -= 1;
+                    continue;
+                }
+
+                if (right < left) {
+                    ret[addIndex] = right;
+                    up += 1;
+                } else {
+                    ret[addIndex] = left;
+                    down -= 1;
+                }
+                addIndex++;
+            }
+            return ret;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
