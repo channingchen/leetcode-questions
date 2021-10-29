@@ -47,6 +47,9 @@ package leetcode.editor.cn;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TwoSumIiInputArrayIsSorted_167 {
     public static void main(String[] args) {
         Solution solution = new TwoSumIiInputArrayIsSorted_167().new Solution();
@@ -69,7 +72,7 @@ public class TwoSumIiInputArrayIsSorted_167 {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public int[] twoSum(int[] nums, int target) {
+        public int[] old_twoSum(int[] nums, int target) {
             int[] ret = new int[]{-1, -1};
             int s, e;
             for (s = 0; s < nums.length; s++) {
@@ -103,6 +106,20 @@ public class TwoSumIiInputArrayIsSorted_167 {
 
             return ret;
         }
+
+        public int[] twoSum(int[] nums, int target) {
+            Map<Integer, Integer> m = new HashMap();
+            for (int i = 0; i < nums.length; i++) {
+                if (m.containsKey(target - nums[i])) {
+                    return new int[]{m.get(target - nums[i]) + 1, i + 1};
+                }
+                if (!m.containsKey(nums[i])) {
+                    m.put(nums[i], i);
+                }
+            }
+            return new int[]{0, 0};
+        }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
