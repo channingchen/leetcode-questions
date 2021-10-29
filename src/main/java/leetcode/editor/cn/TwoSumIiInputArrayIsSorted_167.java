@@ -75,7 +75,8 @@ public class TwoSumIiInputArrayIsSorted_167 {
             for (s = 0; s < nums.length; s++) {
                 int es = 0;
                 int ee = nums.length - 1;
-                int lastTarget = target;
+                int lastes = es;
+                int lastee = ee;
                 while (es <= ee) {
                     e = (es + ee) / 2;
                     int sv = nums[s];
@@ -91,10 +92,11 @@ public class TwoSumIiInputArrayIsSorted_167 {
                         }
                     }
 
-                    if (sv + ev == lastTarget || ev - sv <= 1) {
+                    if (ee == lastee && es == lastes) {
                         break;
                     } else {
-                        lastTarget = sv + ev;
+                        lastee = ee;
+                        lastes = es;
                     }
                 }
             }
