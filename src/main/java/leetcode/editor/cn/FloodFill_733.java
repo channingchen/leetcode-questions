@@ -34,16 +34,97 @@ package leetcode.editor.cn;
 // 👍 231 👎 0
 
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 public class FloodFill_733 {
     public static void main(String[] args) {
         Solution solution = new FloodFill_733().new Solution();
+//        int[][] image = {{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
+        int[][] image = {{0, 0, 0}, {0, 1, 1}};
 
+        int[][] newImg = solution.floodFill(image, 1, 1, 1);
+        for (int i = 0; i < newImg.length; i++) {
+            for (int j = 0; j < newImg[0].length; j++) {
+                System.out.print(newImg[i][j] + " ,");
+            }
+            System.out.println();
+        }
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
+    class Pos {
+        int x;
+        int y;
+
+        Pos(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pos pos = (Pos) o;
+            return x == pos.x &&
+                    y == pos.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+    }
+
     class Solution {
         public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-            return new int[][]{};
+            int old = image[sr][sc];
+            boolean[][] used = new boolean[image.length][image[0].length];
+            Set<Pos> set = new HashSet<Pos>();
+            set.add(new Pos(sr, sc));
+
+            while (set.size() > 0) {
+                Set<Pos> s = new HashSet<Pos>();
+
+                for (Pos pos : set) {
+                    int x = pos.x;
+                    int y = pos.y;
+                    image[x][y] = newColor;
+
+                    if (x - 1 >= 0 && !used[x - 1][y]) {
+                        if (image[x - 1][y] == old) {
+                            s.add(new Pos(x - 1, y));
+                            image[x - 1][y] = newColor;
+                            used[x - 1][y] = true;
+                        }
+                    }
+                    if (x + 1 < image.length && !used[x + 1][y]) {
+                        if (image[x + 1][y] == old) {
+                            s.add(new Pos(x + 1, y));
+                            image[x + 1][y] = newColor;
+                            used[x + 1][y] = true;
+                        }
+                    }
+                    if (y - 1 >= 0 && !used[x][y - 1]) {
+                        if (image[x][y - 1] == old) {
+                            s.add(new Pos(x, y - 1));
+                            image[x][y - 1] = newColor;
+                            used[x][y - 1] = true;
+                        }
+                    }
+                    if (y + 1 < image[0].length && !used[x][y + 1]) {
+                        if (image[x][y + 1] == old) {
+                            s.add(new Pos(x, y + 1));
+                            image[x][y + 1] = newColor;
+                            used[x][y + 1] = true;
+                        }
+                    }
+                }
+                set = s;
+            }
+            return image;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
