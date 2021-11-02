@@ -45,13 +45,47 @@ package leetcode.editor.cn;
 public class MaxAreaOfIsland_695 {
     public static void main(String[] args) {
         Solution solution = new MaxAreaOfIsland_695().new Solution();
-
+        int[][] grid = {{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}};
+        System.out.println(solution.maxAreaOfIsland(grid));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int maxAreaOfIsland(int[][] grid) {
-            return 0;
+            int max = 0;
+            boolean[][] used = new boolean[grid.length][grid[0].length];
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    if (used[i][j] || grid[i][j] == 0) continue;
+
+                    int a = area(grid, i, j, used);
+                    max = Math.max(max, a);
+                }
+            }
+            return max;
+        }
+
+        private int area(int[][] grid, int x, int y, boolean[][] used) {
+            if (grid[x][y] == 0) return 0;
+            int a = 1;
+            used[x][y] = true;
+            a += direct(x - 1, y, grid, used);
+            a += direct(x + 1, y, grid, used);
+            a += direct(x, y - 1, grid, used);
+            a += direct(x, y + 1, grid, used);
+            return a;
+        }
+
+        private int direct(int x, int y, int[][] grid, boolean[][] used) {
+            int a = 0;
+            if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) return 0;
+
+            if (grid[x][y] == 1 && !used[x][y]) {
+                used[x][y] = true;
+
+                a += area(grid, x, y, used);
+            }
+            return a;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
