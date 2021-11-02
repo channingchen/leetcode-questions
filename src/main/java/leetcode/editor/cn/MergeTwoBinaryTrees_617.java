@@ -54,10 +54,21 @@ public class MergeTwoBinaryTrees_617 {
             this.right = right;
         }
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
-            return null;
+            if (root1 == null && root2 == null) {
+                return null;
+            }
+
+            if (root1 == null) return root2;
+            if (root2 == null) return root1;
+
+            TreeNode n = new TreeNode(root1.val + root2.val);
+            n.left = mergeTrees(root1.left, root2.left);
+            n.right = mergeTrees(root1.right, root2.right);
+            return n;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

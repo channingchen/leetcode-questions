@@ -77,13 +77,33 @@ public class PopulatingNextRightPointersInEachNode_116 {
         }
     }
 
-    ;
-
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public Node connect(Node root) {
-            return null;
+            Node left = root.left;
+            Node right = root.right;
+
+            if (null == left) return null;
+
+            Node last = connect(left, true);
+            Node first = connect(right, false);
+            last.next = first;
+            left.next = right;
+            return left;
+        }
+
+        public Node connect(Node root, boolean left) {
+            Node left = root.left;
+            Node right = root.right;
+
+            if (null == left) return null;
+
+            Node last = connect(left, true);
+            Node first = connect(right, false);
+            last.next = first;
+            left.next = right;
+            return left;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
