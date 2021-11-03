@@ -97,7 +97,8 @@ public class Zero1Matrix_542 {
 
             int min = Integer.MAX_VALUE;
             for (int i = 0; i < nextNodes.size(); i += 2) {
-                if (stepCnt == bfs(mat, i, i + 1, used, stepCnt)) {
+                //TODO 处理stepCnt
+                if (stepCnt == bfs(mat, nextNodes.get(i), nextNodes.get(i + 1), used, stepCnt)) {
                     min = Math.min(stepCnt + 1, min);
                 }
             }

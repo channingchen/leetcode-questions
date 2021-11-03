@@ -49,6 +49,9 @@ package leetcode.editor.cn;
 // 👍 446 👎 0
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RottingOranges_994 {
     public static void main(String[] args) {
         Solution solution = new RottingOranges_994().new Solution();
@@ -58,7 +61,55 @@ public class RottingOranges_994 {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int orangesRotting(int[][] grid) {
+            List<Integer> l = new ArrayList<Integer>();
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    if (grid[i][j] == 2) {
+                        l.add(i);
+                        l.add(j);
+                    }
+                }
+            }
+
+            int i = 0;
+            for (; ; i++) {
+                if (l.size() == 0) break;
+                List<Integer> l2 = new ArrayList<Integer>();
+                for (int j = 0; j < l.size(); j += 2) {
+                    List<Integer> t = bfs(grid, l.get(j), l.get(j + 1));
+//                    if
+                }
+            }
+
             return 0;
+        }
+
+        List<Integer> bfs(int[][] grid, int x, int y) {
+            if (grid[x][y] != 2) return null;
+            List<Integer> l = new ArrayList<Integer>();
+
+            if (x - 1 >= 0 && grid[x - 1][y] == 1) {
+                l.add(x - 1);
+                l.add(y);
+                grid[x - 1][y] = 2;
+            }
+            if (y - 1 >= 0 && grid[x][y - 1] == 1) {
+                l.add(x);
+                l.add(y - 1);
+                grid[x][y - 1] = 2;
+            }
+            if (x + 1 >= 0 && grid[x + 1][y] == 1) {
+                l.add(x + 1);
+                l.add(y);
+                grid[x + 1][y] = 2;
+            }
+            if (y + 1 >= 0 && grid[x][y + 1] == 1) {
+                l.add(x);
+                l.add(y + 1);
+                grid[x][y + 1] = 2;
+            }
+
+            return l;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
