@@ -48,32 +48,52 @@ package leetcode.editor.cn;
 // 👍 580 👎 0
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {
+    }
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+}
+
 public class PopulatingNextRightPointersInEachNode_116 {
     public static void main(String[] args) {
         Solution solution = new PopulatingNextRightPointersInEachNode_116().new Solution();
-
-    }
-
-
-    // Definition for a Node.
-    class Node {
-        public int val;
-        public Node left;
-        public Node right;
-        public Node next;
-
-        public Node() {
+        Node[] n = new Node[7];
+        for (int i = 0; i < n.length; i++) {
+            n[i] = new Node(i + 1);
+        }
+        for (int i = 0; i < n.length / 2; i++) {
+            n[i].left = n[i * 2 + 1];
+            n[i].right = n[i * 2 + 2];
         }
 
-        public Node(int _val) {
-            val = _val;
-        }
-
-        public Node(int _val, Node _left, Node _right, Node _next) {
-            val = _val;
-            left = _left;
-            right = _right;
-            next = _next;
+        solution.connect(n[0]);
+        for (int i = 0; i < n.length; i = i * 2 + 1) {
+            Node node = n[i];
+            System.out.print(node.val);
+            while (null != node.next) {
+                node = node.next;
+                System.out.print(node.val);
+            }
+            System.out.println("#");
         }
     }
 
@@ -81,29 +101,31 @@ public class PopulatingNextRightPointersInEachNode_116 {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public Node connect(Node root) {
-            Node left = root.left;
-            Node right = root.right;
+            if (root == null) {
+                return null;
+            }
+            List<Node> l;
+            List<Node> nodes = new ArrayList<Node>();
+            nodes.add(root);
+            do {
+                l = f(nodes);
+                for (int i = 0; i < l.size() - 1; i++) {
+                    l.get(i).next = l.get(i + 1);
+                }
+                nodes = l;
+            } while (nodes.size() > 0);
 
-            if (null == left) return null;
-
-            Node last = connect(left, true);
-            Node first = connect(right, false);
-            last.next = first;
-            left.next = right;
-            return left;
+            return root;
         }
 
-        public Node connect(Node root, boolean left) {
-            Node left = root.left;
-            Node right = root.right;
-
-            if (null == left) return null;
-
-            Node last = connect(left, true);
-            Node first = connect(right, false);
-            last.next = first;
-            left.next = right;
-            return left;
+        private List<Node> f(List<Node> nodes) {
+            List<Node> ret = new ArrayList<Node>();
+            for (int i = 0; i < nodes.size(); i++) {
+                if (null == nodes.get(i).left) break;
+                ret.add(nodes.get(i).left);
+                ret.add(nodes.get(i).right);
+            }
+            return ret;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
