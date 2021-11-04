@@ -48,7 +48,9 @@ import java.util.List;
 public class Zero1Matrix_542 {
     public static void main(String[] args) {
         Solution solution = new Zero1Matrix_542().new Solution();
-        int[][] mat = {{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
+        int[][] mat = {{1, 0, 1, 1, 0, 0, 1, 0, 0, 1}, {0, 1, 1, 0, 1, 0, 1, 0, 1, 1}, {0, 0, 1, 0, 1, 0, 0, 1, 0, 0}, {1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, {0, 1, 0, 1, 1, 0, 0, 0, 0, 1}, {0, 0, 1, 0, 1, 1, 1, 0, 1, 0}, {0, 1, 0, 1, 0, 1, 0, 0, 1, 1}, {1, 0, 0, 0, 1, 1, 1, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0, 1, 0}, {1, 1, 1, 1, 0, 1, 0, 0, 1, 1}};
+        PrintUtils.print2DArray(mat);
+        System.out.println();
         int[][] ret = solution.updateMatrix(mat);
         PrintUtils.print2DArray(ret);
     }
@@ -95,15 +97,14 @@ public class Zero1Matrix_542 {
                 nextNodes.add(y + 1);
             }
 
-            int min = Integer.MAX_VALUE;
+            int min = 999999;
             for (int i = 0; i < nextNodes.size(); i += 2) {
-                //TODO 处理stepCnt
-                if (stepCnt == bfs(mat, nextNodes.get(i), nextNodes.get(i + 1), used, stepCnt)) {
-                    min = Math.min(stepCnt + 1, min);
-                }
+                int step = bfs(mat, nextNodes.get(i), nextNodes.get(i + 1), used, stepCnt);
+                min = Math.min(step + 1, min);
             }
 
-            return Math.min(min, Integer.MAX_VALUE);
+            used[x][y] = false;
+            return Math.min(min, 999999);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
