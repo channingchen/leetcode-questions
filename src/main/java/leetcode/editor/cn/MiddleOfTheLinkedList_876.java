@@ -36,6 +36,8 @@ package leetcode.editor.cn;
 // 👍 427 👎 0
 
 
+import leetcode.editor.cn.utils.ListNode;
+
 public class MiddleOfTheLinkedList_876 {
     public static void main(String[] args) {
         Solution solution = new MiddleOfTheLinkedList_876().new Solution();

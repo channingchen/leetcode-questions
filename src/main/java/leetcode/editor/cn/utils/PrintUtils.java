@@ -12,4 +12,16 @@ public class PrintUtils {
             System.out.println();
         }
     }
+
+    private static long start = -1L;
+
+    public static long showPassed() {
+        if (start < 0) {
+            start = System.currentTimeMillis();
+            System.out.println("0");
+            return 0;
+        }
+        long passed = System.currentTimeMillis() - start;
+        return passed;
+    }
 }

@@ -41,6 +41,8 @@ package leetcode.editor.cn;
 // 👍 1628 👎 0
 
 
+import leetcode.editor.cn.utils.ListNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
